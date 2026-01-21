@@ -44,6 +44,18 @@ A hybrid, AI-assisted video generator and editor that helps creators turn ideas 
 - ✅ Duplicate shot functionality
 - ✅ Visual status indicators (empty/has-video/used)
 
+**Phase 5: Video Upload & Management** ✅ COMPLETE
+
+- ✅ DropZone component with drag & drop file upload
+- ✅ Video file validation (format: MP4/WebM/MOV, size: max 100MB)
+- ✅ Store videos in IndexedDB as Blobs with metadata
+- ✅ Auto-generate video thumbnails using Canvas API
+- ✅ VideoThumbnail component with preview
+- ✅ Video preview dialog with HTML5 video player
+- ✅ Mark as Used functionality with visual indicators
+- ✅ Auto-update shot status (empty → has-video → used)
+- ✅ Delete video with cleanup
+
 ## Quick Start
 
 ### Prerequisites
@@ -102,21 +114,19 @@ elizor/
 - **UI Components**: shadcn/ui (Radix UI)
 - **State Management**: Zustand ✅
 - **Storage**: Dexie.js / IndexedDB ✅
-- **Video Processing**: HTML5 Video API + Canvas (planned)
+- **Video Processing**: HTML5 Video API + Canvas ✅
 - **Export**: FFmpeg.wasm (planned)
 
 ## Next Steps
 
 See [docs/TECHNICAL_SPEC.md](docs/TECHNICAL_SPEC.md) for the full implementation plan.
 
-**Phase 5**: Video Upload & Management
-- Build DropZone component for file upload
-- Implement video file validation (format, size)
-- Store videos in IndexedDB as Blobs
-- Display video thumbnails
-- Implement video preview playback
-- Implement "Mark as Used" functionality
-- Update shot status based on videos
+**Phase 6**: Frame Extraction & Continuity
+- Implement Canvas-based frame extraction
+- Extract last frame when video marked as Used
+- Display previous shot's last frame in editor
+- Generate continuity instruction text
+- Include frame reference in copy prompt
 
 ## Documentation
 

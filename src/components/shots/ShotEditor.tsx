@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { VideoGrid } from './VideoGrid'
 import { Copy, Trash2, CopyPlus, Check } from 'lucide-react'
 
 export function ShotEditor() {
@@ -176,11 +177,7 @@ Transition: ${selectedShot.transition}`
       <div className="flex-1 p-4 overflow-auto">
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">Video Uploads</h3>
-          <Card className="p-4">
-            <p className="text-sm text-muted-foreground text-center">
-              Video upload functionality coming in Phase 5
-            </p>
-          </Card>
+          <VideoGrid shotId={selectedShot.id} />
         </div>
       </div>
 
