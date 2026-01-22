@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { NewProjectDialog } from '@/components/project/NewProjectDialog'
 import { LoadScriptDialog } from '@/components/project/LoadScriptDialog'
+import { ExportDialog } from '@/components/export/ExportDialog'
 import { useProjectStore } from '@/stores/projectStore'
 
 export function MenuBar() {
   const [showNewProject, setShowNewProject] = useState(false)
   const [showLoadScript, setShowLoadScript] = useState(false)
+  const [showExport, setShowExport] = useState(false)
   const project = useProjectStore(state => state.project)
 
   return (
@@ -49,7 +51,11 @@ export function MenuBar() {
           >
             Load Script
           </Button>
-          <Button size="sm" disabled={!project}>
+          <Button
+            size="sm"
+            disabled={!project}
+            onClick={() => setShowExport(true)}
+          >
             Export
           </Button>
         </div>
@@ -63,6 +69,7 @@ export function MenuBar() {
         open={showLoadScript}
         onOpenChange={setShowLoadScript}
       />
+      <ExportDialog open={showExport} onOpenChange={setShowExport} />
     </header>
   )
 }
