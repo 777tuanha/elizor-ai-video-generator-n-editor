@@ -5,6 +5,7 @@ import { Shot } from '@/types/shot'
 import { VideoClip } from '@/types/video'
 import { StoryScript } from '@/types/storyScript'
 import { db } from '@/services/db'
+import { extractLastFrame } from '@/services/videoProcessor'
 
 interface ProjectState {
   // Data
@@ -27,7 +28,7 @@ interface ProjectState {
 
   // Video actions
   addVideo: (shotId: string, video: VideoClip) => Promise<void>
-  markVideoAsUsed: (shotId: string, videoId: string) => void
+  markVideoAsUsed: (shotId: string, videoId: string) => Promise<void>
   deleteVideo: (videoId: string) => Promise<void>
 
   // Timeline actions
@@ -223,7 +224,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
     set({ videos: newVideos })
   },
 
-  markVideoAsUsed: (shotId: string, videoId: string) => {
+  markVideoAsUsed: async (shotId: string, videoId: string) => {
     const { videos, project } = get()
     if (!project) return
 
@@ -241,11 +242,24 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
       db.videos.update(v.id, { isUsed: v.isUsed })
     })
 
-    // Update shot status and reference
+    // Extract last frame from the used video
     const usedVideo = updatedVideos.find(v => v.isUsed)
+    let lastFrameUrl: string | undefined
+
+    if (usedVideo) {
+      try {
+        lastFrameUrl = await extractLastFrame(usedVideo.blob)
+      } catch (error) {
+        console.error('Failed to extract last frame:', error)
+        // Continue without frame - it's not critical
+      }
+    }
+
+    // Update shot status and reference
     get().updateShot(shotId, {
       status: 'used',
       usedVideoId: videoId,
+      lastFrameUrl,
     })
 
     // Update timeline order if not already in timeline

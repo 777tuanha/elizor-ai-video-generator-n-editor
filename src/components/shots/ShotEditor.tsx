@@ -11,6 +11,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { VideoGrid } from './VideoGrid'
+import { FrameReference } from './FrameReference'
 import { Copy, Trash2, CopyPlus, Check } from 'lucide-react'
 
 export function ShotEditor() {
@@ -25,16 +26,32 @@ export function ShotEditor() {
 
   const selectedShot = getSelectedShot()
 
+  // Get previous shot for continuity reference
+  const previousShot =
+    selectedShot && selectedShot.index > 0 && project
+      ? project.shots[selectedShot.index - 1]
+      : null
+
   const handleCopyPrompt = async () => {
     if (!selectedShot) return
 
-    const prompt = `Shot ${selectedShot.index + 1} (${selectedShot.duration}s)
+    let prompt = `Shot ${selectedShot.index + 1} (${selectedShot.duration}s)
 
 Visual: ${selectedShot.visual}
 
 Camera: ${selectedShot.camera}
 
 Transition: ${selectedShot.transition}`
+
+    // Add continuity reference if this shot follows another shot
+    if (previousShot) {
+      prompt += `\n\nContinuity: This shot follows Shot ${previousShot.index + 1}. `
+      if (previousShot.lastFrameUrl) {
+        prompt += `Reference the last frame from the previous shot to ensure visual continuity. Match lighting, subject position, and environmental details for a smooth transition.`
+      } else {
+        prompt += `Ensure visual continuity with the previous shot for smooth transition. Note: No reference frame available yet.`
+      }
+    }
 
     try {
       await navigator.clipboard.writeText(prompt)
@@ -161,14 +178,16 @@ Transition: ${selectedShot.transition}`
             </div>
           </Card>
 
-          {selectedShot.index > 0 && (
-            <Card className="p-4 border-primary/50">
-              <h4 className="text-sm font-medium mb-2">Continuity Guide</h4>
-              <p className="text-xs text-muted-foreground">
-                This shot follows Shot {selectedShot.index}. Ensure visual
-                continuity between shots for smooth transitions.
-              </p>
-            </Card>
+          {selectedShot.index > 0 && previousShot && (
+            <FrameReference
+              frameUrl={previousShot.lastFrameUrl}
+              previousShotIndex={previousShot.index}
+              continuityText={
+                previousShot.lastFrameUrl
+                  ? `This shot follows Shot ${previousShot.index + 1}. Use the reference frame above to ensure visual continuity. Match lighting, subject position, and environmental details for a smooth ${selectedShot.transition.toLowerCase()} transition.`
+                  : `This shot follows Shot ${previousShot.index + 1}. Mark a video as Used in the previous shot to extract a reference frame for better continuity guidance.`
+              }
+            />
           )}
         </div>
       </div>

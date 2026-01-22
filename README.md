@@ -56,6 +56,16 @@ A hybrid, AI-assisted video generator and editor that helps creators turn ideas 
 - ✅ Auto-update shot status (empty → has-video → used)
 - ✅ Delete video with cleanup
 
+**Phase 6: Frame Extraction & Continuity** ✅ COMPLETE
+
+- ✅ Canvas-based frame extraction from videos
+- ✅ Extract last frame when video marked as Used
+- ✅ Display previous shot's last frame in editor
+- ✅ FrameReference component with continuity guidance
+- ✅ Enhanced Copy Prompt with continuity instructions
+- ✅ Auto-store extracted frames in shot metadata
+- ✅ All tests passing (22/22), production build successful
+
 ## Quick Start
 
 ### Prerequisites
@@ -121,12 +131,12 @@ elizor/
 
 See [docs/TECHNICAL_SPEC.md](docs/TECHNICAL_SPEC.md) for the full implementation plan.
 
-**Phase 6**: Frame Extraction & Continuity
-- Implement Canvas-based frame extraction
-- Extract last frame when video marked as Used
-- Display previous shot's last frame in editor
-- Generate continuity instruction text
-- Include frame reference in copy prompt
+**Phase 7**: Video Preview Player
+- Build VideoPlayer component with 9:16 aspect ratio
+- Implement play/pause/seek controls
+- Play from selected shot functionality
+- Full preview with all used videos in sequence
+- Current position indicator and shot highlighting
 
 ## Documentation
 
