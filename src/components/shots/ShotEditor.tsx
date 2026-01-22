@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useProjectStore } from '@/stores/projectStore'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { Textarea } from '@/components/ui/textarea'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   Dialog,
   DialogContent,
@@ -12,7 +14,23 @@ import {
 } from '@/components/ui/dialog'
 import { VideoGrid } from './VideoGrid'
 import { FrameReference } from './FrameReference'
-import { Copy, Trash2, CopyPlus, Check } from 'lucide-react'
+import { Copy, Trash2, CopyPlus, Check, MoveRight } from 'lucide-react'
+import { Shot } from '@/types/shot'
+
+// Helper function to generate JSON prompt
+const generateJsonPrompt = (shot: Shot): string => {
+  // Filter out system fields
+  const systemFields = ['id', 'index', 'status', 'usedVideoId', 'lastFrameUrl']
+
+  const shotData: Record<string, any> = {}
+  Object.entries(shot)
+    .filter(([key]) => !systemFields.includes(key))
+    .forEach(([key, value]) => {
+      shotData[key] = value
+    })
+
+  return JSON.stringify(shotData, null, 2)
+}
 
 export function ShotEditor() {
   const project = useProjectStore(state => state.project)
@@ -20,9 +38,12 @@ export function ShotEditor() {
   const deleteShot = useProjectStore(state => state.deleteShot)
   const duplicateShot = useProjectStore(state => state.duplicateShot)
   const selectShot = useProjectStore(state => state.selectShot)
+  const toggleShotEditorPosition = useProjectStore(state => state.toggleShotEditorPosition)
+  const shotEditorPosition = useProjectStore(state => state.shotEditorPosition)
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [jsonCopied, setJsonCopied] = useState(false)
 
   const selectedShot = getSelectedShot()
 
@@ -83,6 +104,20 @@ export function ShotEditor() {
     }
   }
 
+  const handleCopyJsonPrompt = async () => {
+    if (!selectedShot) return
+
+    const jsonPrompt = generateJsonPrompt(selectedShot)
+
+    try {
+      await navigator.clipboard.writeText(jsonPrompt)
+      setJsonCopied(true)
+      setTimeout(() => setJsonCopied(false), 2000)
+    } catch (error) {
+      console.error('Failed to copy JSON:', error)
+    }
+  }
+
   const handleDelete = () => {
     if (!selectedShot) return
     deleteShot(selectedShot.id)
@@ -114,51 +149,85 @@ export function ShotEditor() {
   }
 
   return (
-    <div className="flex h-full">
-      {/* Left Panel: Shot Material */}
-      <div className="flex-1 border-r p-4 overflow-auto">
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">
-              Shot {selectedShot.index + 1}
-            </h3>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleCopyPrompt}
-                disabled={copied}
-              >
-                {copied ? (
-                  <>
-                    <Check className="h-4 w-4 mr-2" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-4 w-4 mr-2" />
-                    Copy Prompt
-                  </>
-                )}
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleDuplicate}
-              >
-                <CopyPlus className="h-4 w-4 mr-2" />
-                Duplicate
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowDeleteConfirm(true)}
-              >
-                <Trash2 className="h-4 w-4 mr-2" />
-                Delete
-              </Button>
-            </div>
-          </div>
+    <div className="flex flex-col h-full p-4">
+      {/* Header with Actions */}
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-semibold">
+          Shot {selectedShot.index + 1}
+        </h3>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopyPrompt}
+            disabled={copied}
+          >
+            {copied ? (
+              <>
+                <Check className="h-4 w-4 mr-2" />
+                Copied!
+              </>
+            ) : (
+              <>
+                <Copy className="h-4 w-4 mr-2" />
+                Copy Prompt
+              </>
+            )}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopyJsonPrompt}
+            disabled={jsonCopied}
+          >
+            {jsonCopied ? (
+              <>
+                <Check className="h-4 w-4 mr-2" />
+                Copied!
+              </>
+            ) : (
+              <>
+                <Copy className="h-4 w-4 mr-2" />
+                Copy JSON
+              </>
+            )}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleDuplicate}
+          >
+            <CopyPlus className="h-4 w-4 mr-2" />
+            Duplicate
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowDeleteConfirm(true)}
+          >
+            <Trash2 className="h-4 w-4 mr-2" />
+            Delete
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={toggleShotEditorPosition}
+          >
+            <MoveRight className="h-4 w-4 mr-2" />
+            {shotEditorPosition === 'bottom' ? 'Move Right' : 'Move Bottom'}
+          </Button>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <Tabs defaultValue="details" className="flex-1 flex flex-col min-h-0">
+        <TabsList>
+          <TabsTrigger value="details">Shot Details</TabsTrigger>
+          <TabsTrigger value="videos">Video Uploads</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="details" className="flex-1 overflow-auto space-y-4 mt-4">
+          {/* Shot Details Card */}
 
           <Card className="p-4">
             <div className="space-y-3">
@@ -228,6 +297,19 @@ export function ShotEditor() {
             </div>
           </Card>
 
+          {/* JSON Prompt Display */}
+          <Card className="p-4">
+            <label className="text-xs font-medium text-muted-foreground">
+              JSON Prompt
+            </label>
+            <Textarea
+              value={generateJsonPrompt(selectedShot)}
+              readOnly
+              className="font-mono text-xs mt-2 min-h-[200px]"
+            />
+          </Card>
+
+          {/* Frame Reference */}
           {selectedShot.index > 0 && previousShot && (
             <FrameReference
               frameUrl={previousShot.lastFrameUrl}
@@ -239,16 +321,12 @@ export function ShotEditor() {
               }
             />
           )}
-        </div>
-      </div>
+        </TabsContent>
 
-      {/* Right Panel: Generated Videos */}
-      <div className="flex-1 p-4 overflow-auto">
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Video Uploads</h3>
+        <TabsContent value="videos" className="flex-1 overflow-auto mt-4">
           <VideoGrid shotId={selectedShot.id} />
-        </div>
-      </div>
+        </TabsContent>
+      </Tabs>
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>

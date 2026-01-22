@@ -52,7 +52,7 @@ export function ExportDialog({ open, onOpenChange }: ExportDialogProps) {
       setProgress({
         phase: 'error',
         progress: 0,
-        message: 'No videos to export. Mark videos as Used first.',
+        message: 'No videos to export. Mark at least one video as "Used" in the timeline.',
       })
       return
     }
@@ -179,7 +179,7 @@ export function ExportDialog({ open, onOpenChange }: ExportDialogProps) {
             <Alert>
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                No videos to export. Mark videos as Used to add them to the timeline.
+                No videos to export. Mark at least one video as "Used" in the timeline.
               </AlertDescription>
             </Alert>
           )}

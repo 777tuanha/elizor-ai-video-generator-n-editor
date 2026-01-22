@@ -29,6 +29,7 @@ export function TimelineClip({
 }: TimelineClipProps) {
   return (
     <Card
+      data-testid="timeline-clip"
       draggable
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
@@ -40,9 +41,10 @@ export function TimelineClip({
         isSelected ? 'border-primary ring-2 ring-primary/20' : 'border-border'
       )}
       style={{
-        // Base width of 120px per second of video
-        width: `${Math.max(video.duration * 120, 80)}px`,
-        minWidth: '80px',
+        width: '100px',
+        height: '80px',
+        minWidth: '100px',
+        minHeight: '80px',
       }}
     >
       <div className="h-full flex flex-col p-2">

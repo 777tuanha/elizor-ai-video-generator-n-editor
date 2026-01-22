@@ -12,6 +12,7 @@ interface ProjectState {
   project: Project | null
   videos: Map<string, VideoClip[]> // shotId -> videos
   selectedShotId: string | null
+  shotEditorPosition: 'bottom' | 'right'
 
   // Actions
   createProject: (title: string, settings: ProjectSettings) => Promise<void>
@@ -34,6 +35,9 @@ interface ProjectState {
   // Timeline actions
   updateTimelineOrder: (order: string[]) => void
 
+  // UI actions
+  toggleShotEditorPosition: () => void
+
   // Utility
   getSelectedShot: () => Shot | null
   getShotVideos: (shotId: string) => VideoClip[]
@@ -43,6 +47,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   project: null,
   videos: new Map(),
   selectedShotId: null,
+  shotEditorPosition: 'bottom',
 
   createProject: async (title: string, settings: ProjectSettings) => {
     const now = Date.now()
@@ -327,6 +332,11 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
       },
     })
     get().saveProject()
+  },
+
+  toggleShotEditorPosition: () => {
+    const { shotEditorPosition } = get()
+    set({ shotEditorPosition: shotEditorPosition === 'bottom' ? 'right' : 'bottom' })
   },
 
   getSelectedShot: () => {

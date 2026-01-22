@@ -64,6 +64,7 @@ export function ShotList() {
       {project.shots.map((shot, index) => (
         <div
           key={shot.id}
+          data-testid="shot-item"
           draggable
           onDragStart={() => handleDragStart(index)}
           onDragOver={e => handleDragOver(e, index)}

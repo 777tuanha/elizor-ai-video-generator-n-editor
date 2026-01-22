@@ -201,10 +201,11 @@ export function VideoPlayer() {
     <div className="flex flex-col h-full">
       {/* Video Display */}
       <div className="flex-1 flex items-center justify-center bg-black">
-        <div className="relative w-full max-w-[360px] aspect-[9/16]">
+        <div className="relative w-full max-w-[640px] h-full">
           <video
             ref={videoRef}
             className="w-full h-full object-contain"
+            style={{ maxHeight: '100%' }}
             onEnded={handleVideoEnded}
             onTimeUpdate={handleTimeUpdate}
             onPlay={() => setIsPlaying(true)}

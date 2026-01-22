@@ -17,6 +17,7 @@ export function MainLayout() {
   const deleteShot = useProjectStore(state => state.deleteShot)
   const loadProject = useProjectStore(state => state.loadProject)
   const saveProject = useProjectStore(state => state.saveProject)
+  const shotEditorPosition = useProjectStore(state => state.shotEditorPosition)
 
   // Navigate to previous/next shot
   const navigateShot = (direction: 'prev' | 'next') => {
@@ -97,7 +98,7 @@ export function MainLayout() {
       <MenuBar />
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Section 1: Video Preview + Shot List */}
+        {/* Section 1: Video Preview + Shot List + Optional Shot Editor (Right) */}
         <div className="flex-1 flex border-b min-h-0">
           {/* Video Preview */}
           <Section title="Preview" className="flex-1 border-r">
@@ -105,9 +106,16 @@ export function MainLayout() {
           </Section>
 
           {/* Shot List */}
-          <Section title="Shots" className="w-80">
+          <Section title="Shots" className="w-80 border-r">
             <ShotList />
           </Section>
+
+          {/* Conditional Shot Editor on Right */}
+          {shotEditorPosition === 'right' && (
+            <Section title="Shot Editor" className="w-96">
+              <ShotEditor />
+            </Section>
+          )}
         </div>
 
         {/* Section 2: Timeline */}
@@ -115,10 +123,12 @@ export function MainLayout() {
           <Timeline />
         </Section>
 
-        {/* Section 3: Shot Editor */}
-        <Section title="Shot Editor" className="h-64 flex-shrink-0">
-          <ShotEditor />
-        </Section>
+        {/* Section 3: Conditional Shot Editor at Bottom */}
+        {shotEditorPosition === 'bottom' && (
+          <Section title="Shot Editor" className="h-64 flex-shrink-0">
+            <ShotEditor />
+          </Section>
+        )}
       </div>
 
       {/* Keyboard Shortcuts Help */}
