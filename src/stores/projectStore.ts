@@ -94,13 +94,23 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
     if (!project) return
 
     const shots: Shot[] = script.shots.map((scriptShot, index) => ({
+      // System fields
       id: uuidv4(),
       index,
+      status: 'empty' as const,
+
+      // Required fields
       duration: scriptShot.duration,
       visual: scriptShot.visual,
       camera: scriptShot.camera,
       transition: scriptShot.transition,
-      status: 'empty' as const,
+
+      // Pass through all other fields (dialogue and any custom optional fields)
+      ...Object.fromEntries(
+        Object.entries(scriptShot).filter(
+          ([key]) => !['duration', 'visual', 'camera', 'transition'].includes(key)
+        )
+      ),
     }))
 
     const updatedProject = {

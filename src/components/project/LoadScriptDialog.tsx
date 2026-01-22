@@ -20,25 +20,28 @@ interface LoadScriptDialogProps {
 }
 
 const SAMPLE_SCRIPT = `{
-  "title": "Product Launch Teaser",
+  "title": "Down the Rabbit Hole: Alice's Jobless Wonderland",
   "shots": [
     {
-      "duration": 3,
-      "visual": "Close-up of mysterious box on table, dramatic lighting",
-      "camera": "Slow push in, shallow depth of field",
+      "duration": 6,
+      "visual": "Stunning young Asian woman sitting alone in a modern apartment, staring at a laptop screen showing a layoff email, expression shifting from shock to despair",
+      "camera": "Slow push in from wide shot to extreme close-up on her teary eyes",
+      "dialogue": "Alice (soft whisper): '...Due to restructuring... your position has been eliminated...'",
+      "transition": "Soft dissolve"
+    },
+    {
+      "duration": 6,
+      "visual": "Alice walking aimlessly through a lush city park in golden afternoon light, looking lost and frustrated",
+      "camera": "Steadicam tracking beside her, keeping her in medium shot",
+      "dialogue": "Alice (muttering): 'What now? Everything gone... just like that.'",
       "transition": "Quick cut"
     },
     {
-      "duration": 4,
-      "visual": "Hands opening the box, revealing golden light",
-      "camera": "Eye-level, steady shot",
-      "transition": "Match cut on light"
-    },
-    {
-      "duration": 5,
-      "visual": "Product reveal with particle effects",
-      "camera": "360 degree orbit shot",
-      "transition": "Fade to white"
+      "duration": 6,
+      "visual": "A white rabbit in a waistcoat frantically checks a pocket watch, then hops toward a large tree with a glowing hole",
+      "camera": "Low-angle shot emphasizing urgency, then whip pan to Alice's surprised reaction",
+      "dialogue": "White Rabbit: 'I'm late! I'm late! For a very important date!'",
+      "transition": "Match cut on movement"
     }
   ]
 }`
@@ -109,6 +112,38 @@ export function LoadScriptDialog({ open, onOpenChange }: LoadScriptDialogProps) 
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
+          {!showConfirm && (
+            <div className="text-sm text-muted-foreground space-y-2">
+              <p className="font-medium">Script format:</p>
+              <ul className="list-disc list-inside space-y-0.5 text-xs ml-2">
+                <li>
+                  <code className="text-xs bg-muted px-1 py-0.5 rounded">duration</code>{' '}
+                  (required): Shot duration in seconds
+                </li>
+                <li>
+                  <code className="text-xs bg-muted px-1 py-0.5 rounded">visual</code>{' '}
+                  (required): Visual description
+                </li>
+                <li>
+                  <code className="text-xs bg-muted px-1 py-0.5 rounded">camera</code>{' '}
+                  (required): Camera movement/angle
+                </li>
+                <li>
+                  <code className="text-xs bg-muted px-1 py-0.5 rounded">transition</code>{' '}
+                  (required): Transition to next shot
+                </li>
+                <li>
+                  <code className="text-xs bg-muted px-1 py-0.5 rounded">dialogue</code>{' '}
+                  (optional): Character dialogue/voiceover
+                </li>
+              </ul>
+              <p className="text-xs italic mt-2">
+                You can include any additional optional fields (e.g., location, music,
+                notes) - they will be displayed in the shot details.
+              </p>
+            </div>
+          )}
+
           {showConfirm ? (
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />

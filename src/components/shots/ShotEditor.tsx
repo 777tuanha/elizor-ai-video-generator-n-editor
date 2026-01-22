@@ -35,23 +35,44 @@ export function ShotEditor() {
   const handleCopyPrompt = async () => {
     if (!selectedShot) return
 
-    let prompt = `Shot ${selectedShot.index + 1} (${selectedShot.duration}s)
+    const parts = [
+      `Shot ${selectedShot.index + 1} (${selectedShot.duration}s)`,
+      ``,
+      `Visual: ${selectedShot.visual}`,
+      ``,
+      `Camera: ${selectedShot.camera}`,
+    ]
 
-Visual: ${selectedShot.visual}
+    // Add dialogue with special formatting
+    if (selectedShot.dialogue) {
+      parts.push(``, `Dialogue: "${selectedShot.dialogue}"`)
+    }
 
-Camera: ${selectedShot.camera}
+    // Add all other optional fields dynamically
+    const systemFields = ['id', 'index', 'status', 'usedVideoId', 'lastFrameUrl']
+    const displayedFields = ['duration', 'visual', 'camera', 'transition', 'dialogue']
 
-Transition: ${selectedShot.transition}`
+    Object.entries(selectedShot)
+      .filter(([key]) => !systemFields.includes(key) && !displayedFields.includes(key))
+      .forEach(([key, value]) => {
+        if (value && typeof value === 'string') {
+          parts.push(``, `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`)
+        }
+      })
+
+    parts.push(``, `Transition: ${selectedShot.transition}`)
 
     // Add continuity reference if this shot follows another shot
     if (previousShot) {
-      prompt += `\n\nContinuity: This shot follows Shot ${previousShot.index + 1}. `
+      parts.push(``, `Continuity: This shot follows Shot ${previousShot.index + 1}. `)
       if (previousShot.lastFrameUrl) {
-        prompt += `Reference the last frame from the previous shot to ensure visual continuity. Match lighting, subject position, and environmental details for a smooth transition.`
+        parts.push(`Reference the last frame from the previous shot to ensure visual continuity. Match lighting, subject position, and environmental details for a smooth transition.`)
       } else {
-        prompt += `Ensure visual continuity with the previous shot for smooth transition. Note: No reference frame available yet.`
+        parts.push(`Ensure visual continuity with the previous shot for smooth transition. Note: No reference frame available yet.`)
       }
     }
+
+    const prompt = parts.join('\n')
 
     try {
       await navigator.clipboard.writeText(prompt)
@@ -162,12 +183,41 @@ Transition: ${selectedShot.transition}`
                 <p className="text-sm mt-1">{selectedShot.camera}</p>
               </div>
 
+              {/* Dialogue (with special formatting) */}
+              {selectedShot.dialogue && (
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">
+                    Dialogue
+                  </label>
+                  <div className="text-sm italic mt-1 pl-3 border-l-2 border-purple-400">
+                    "{selectedShot.dialogue}"
+                  </div>
+                </div>
+              )}
+
               <div>
                 <label className="text-xs font-medium text-muted-foreground">
                   Transition
                 </label>
                 <p className="text-sm mt-1">{selectedShot.transition}</p>
               </div>
+
+              {/* Display any other optional fields dynamically */}
+              {Object.entries(selectedShot)
+                .filter(([key]) => {
+                  // Exclude system fields and known fields already displayed
+                  const systemFields = ['id', 'index', 'status', 'usedVideoId', 'lastFrameUrl']
+                  const displayedFields = ['duration', 'visual', 'camera', 'transition', 'dialogue']
+                  return !systemFields.includes(key) && !displayedFields.includes(key)
+                })
+                .map(([key, value]) => (
+                  <div key={key}>
+                    <label className="text-xs font-medium text-muted-foreground">
+                      {key.charAt(0).toUpperCase() + key.slice(1)}
+                    </label>
+                    <p className="text-sm mt-1">{String(value)}</p>
+                  </div>
+                ))}
 
               <div>
                 <label className="text-xs font-medium text-muted-foreground">

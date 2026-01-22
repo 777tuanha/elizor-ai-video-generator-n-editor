@@ -1,0 +1,75 @@
+{
+  "title": "Down the Rabbit Hole: Alice's Jobless Wonderland",
+  "shots": [
+    {
+      "duration": 6,
+      "visual": "Stunning young Asian woman (mid-20s, long silky black hair, delicate features, wearing a simple white blouse and skirt) sitting alone in a modern apartment, staring at a laptop screen showing a layoff email, expression shifting from shock to despair",
+      "camera": "Slow push in from wide shot of the room to extreme close-up on her teary eyes",
+      "dialogue": "Alice (soft whisper, breaking voice): \"...Due to restructuring... your position has been eliminated...\"",
+      "transition": "Soft dissolve"
+    },
+    {
+      "duration": 6,
+      "visual": "Alice walking aimlessly through a lush city park in golden afternoon light, looking lost and frustrated, kicking lightly at fallen leaves",
+      "camera": "Steadicam tracking beside her, keeping her in medium shot",
+      "dialogue": "Alice (muttering to herself): \"What now? Everything gone... just like that.\"",
+      "transition": "Quick cut"
+    },
+    {
+      "duration": 6,
+      "visual": "A white rabbit in a waistcoat frantically checks a pocket watch, muttering 'I'm late!', then hops toward a large tree with a glowing hole at its base; Alice spots it with wide-eyed curiosity",
+      "camera": "Low-angle shot emphasizing the rabbit's urgency, then whip pan to Alice's surprised reaction",
+      "dialogue": "White Rabbit: \"I'm late! I'm late! For a very important date!\"",
+      "transition": "Match cut on movement"
+    },
+    {
+      "duration": 6,
+      "visual": "Alice runs after the rabbit, hair flowing, reaching the tree just as the rabbit vanishes into the hole; she peers in, loses balance, and tumbles forward",
+      "camera": "Handheld chase shot building speed, ending in POV of falling",
+      "dialogue": "Alice (breathless): \"Wait! Please wait!\"",
+      "transition": "Sudden flip to vertical fall"
+    },
+    {
+      "duration": 6,
+      "visual": "Surreal slow-motion fall down the endless rabbit hole: Alice tumbling gracefully past floating clocks, resumes, briefcases, and office chairs",
+      "camera": "360-degree rotating shot around Alice, emphasizing her startled yet beautiful expression",
+      "dialogue": "Alice (echoing voice): \"What's happening to me?\"",
+      "transition": "Hard cut to impact"
+    },
+    {
+      "duration": 6,
+      "visual": "Alice lands softly in a dimly lit hall lined with doors of all sizes; she finds a tiny bottle labeled 'Drink Me' and a cake labeled 'Eat Me', hesitates, then drinks and shrinks dramatically",
+      "camera": "Wide establishing shot, then rapid zoom out as she shrinks",
+      "dialogue": "Alice (nervous): \"Well... what have I got to lose?\"",
+      "transition": "Dissolve through swirling colors"
+    },
+    {
+      "duration": 6,
+      "visual": "Tiny Alice enters a vibrant oversized garden; talking flowers gossip about 'job prospects' while a grinning Cheshire Cat materializes on a branch above her",
+      "camera": "Low-angle dolly through giant flowers up to the cat's mischievous smile",
+      "dialogue": "Cheshire Cat: \"Lost your way? Or perhaps... you're looking for a new one?\"",
+      "transition": "Fade to warm tones"
+    },
+    {
+      "duration": 6,
+      "visual": "Chaotic Mad Tea Party: Alice seated at a long cluttered table with the eccentric Mad Hatter and March Hare arguing about deadlines while pouring endless tea",
+      "camera": "Circular orbit around the table, capturing the madness and Alice's growing confusion",
+      "dialogue": "Mad Hatter: \"No time! No time! Always deadlines but never any time!\"",
+      "transition": "Smash cut"
+    },
+    {
+      "duration": 6,
+      "visual": "Croquet game on a bizarre lawn: Alice awkwardly swinging a flamingo mallet at a hedgehog ball while the furious Queen of Hearts screams 'Off with her contract!'",
+      "camera": "Dynamic tracking shot following the hedgehog, keeping Alice in frame",
+      "dialogue": "Queen of Hearts: \"Off with her contract! Off with her benefits!\"",
+      "transition": "Build with rising music"
+    },
+    {
+      "duration": 6,
+      "visual": "Alice eats a piece of mushroom, grows enormous, towers over the card soldiers and Queen, confidently declares 'I'm done playing your games', then everything begins to blur as she wakes",
+      "camera": "Extreme low angle making Alice gigantic, then slow pull back as scene dissolves",
+      "dialogue": "Alice (confident, powerful): \"I'm done playing your games. I make my own rules now.\"",
+      "transition": "Fade to white"
+    }
+  ]
+}

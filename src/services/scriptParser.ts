@@ -159,6 +159,17 @@ function validateShot(shot: unknown, index: number): ValidationError[] {
     })
   }
 
+  // Validate optional dialogue field (only if present)
+  if ('dialogue' in shot && typeof shot.dialogue !== 'string') {
+    errors.push({
+      field: `${prefix}.dialogue`,
+      message: `Shot ${index + 1}: dialogue must be a string`,
+    })
+  }
+
+  // Allow any other optional fields (no validation)
+  // Users can add custom metadata without breaking validation
+
   return errors
 }
 

@@ -44,6 +44,12 @@ export function ShotCard({ shot, isSelected, onSelect }: ShotCardProps) {
             />
           </div>
 
+          {shot.dialogue && (
+            <div className="text-xs italic text-purple-400 line-clamp-1 mb-1">
+              "{shot.dialogue}"
+            </div>
+          )}
+
           <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <span>{shot.duration}s</span>
             <span className="truncate">{shot.camera}</span>

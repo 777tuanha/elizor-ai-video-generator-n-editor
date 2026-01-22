@@ -98,7 +98,7 @@ export function MainLayout() {
 
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Section 1: Video Preview + Shot List */}
-        <div className="flex-1 flex border-b">
+        <div className="flex-1 flex border-b min-h-0">
           {/* Video Preview */}
           <Section title="Preview" className="flex-1 border-r">
             <VideoPlayer />
@@ -111,12 +111,12 @@ export function MainLayout() {
         </div>
 
         {/* Section 2: Timeline */}
-        <Section title="Timeline" className="h-32 border-b">
+        <Section title="Timeline" className="h-32 border-b flex-shrink-0">
           <Timeline />
         </Section>
 
         {/* Section 3: Shot Editor */}
-        <Section title="Shot Editor" className="h-64">
+        <Section title="Shot Editor" className="h-64 flex-shrink-0">
           <ShotEditor />
         </Section>
       </div>
