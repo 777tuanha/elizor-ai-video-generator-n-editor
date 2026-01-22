@@ -66,6 +66,18 @@ A hybrid, AI-assisted video generator and editor that helps creators turn ideas 
 - ✅ Auto-store extracted frames in shot metadata
 - ✅ All tests passing (22/22), production build successful
 
+**Phase 7: Video Preview Player** ✅ COMPLETE
+
+- ✅ VideoPlayer component with 9:16 aspect ratio display
+- ✅ Play/pause/seek controls with time display
+- ✅ Full preview plays all used videos in sequence
+- ✅ Play from selected shot functionality
+- ✅ Progress bar with segment markers for each shot
+- ✅ Current shot indicator during playback
+- ✅ Shot highlighting in timeline during playback
+- ✅ Automatic transition between video segments
+- ✅ All tests passing (22/22), production build successful
+
 ## Quick Start
 
 ### Prerequisites
@@ -131,12 +143,12 @@ elizor/
 
 See [docs/TECHNICAL_SPEC.md](docs/TECHNICAL_SPEC.md) for the full implementation plan.
 
-**Phase 7**: Video Preview Player
-- Build VideoPlayer component with 9:16 aspect ratio
-- Implement play/pause/seek controls
-- Play from selected shot functionality
-- Full preview with all used videos in sequence
-- Current position indicator and shot highlighting
+**Phase 8**: Timeline Assembly
+- Horizontal scrolling timeline component
+- Display only shots with "Used" videos
+- Drag & drop reordering on timeline
+- Clip duration visualization
+- Sync timeline order with preview playback
 
 ## Documentation
 

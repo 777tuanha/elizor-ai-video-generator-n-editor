@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { MenuBar } from './MenuBar'
 import { Section } from './Section'
-import { Card } from '@/components/ui/card'
 import { ShotList } from '@/components/shots/ShotList'
 import { ShotEditor } from '@/components/shots/ShotEditor'
+import { VideoPlayer } from '@/components/preview/VideoPlayer'
 import { useProjectStore } from '@/stores/projectStore'
 import { db } from '@/services/db'
 
@@ -36,11 +36,7 @@ export function MainLayout() {
         <div className="flex-1 flex border-b">
           {/* Video Preview */}
           <Section title="Preview" className="flex-1 border-r">
-            <div className="flex items-center justify-center h-full bg-muted/20">
-              <Card className="w-64 aspect-[9/16] bg-muted flex items-center justify-center">
-                <p className="text-sm text-muted-foreground">9:16 Preview</p>
-              </Card>
-            </div>
+            <VideoPlayer />
           </Section>
 
           {/* Shot List */}
