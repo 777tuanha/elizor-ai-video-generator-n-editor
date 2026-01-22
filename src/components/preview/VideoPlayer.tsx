@@ -3,6 +3,7 @@ import { useProjectStore } from '@/stores/projectStore'
 import { VideoClip } from '@/types/video'
 import { Shot } from '@/types/shot'
 import { PlaybackControls } from './PlaybackControls'
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
 interface VideoSegment {
   shot: Shot
@@ -165,6 +166,15 @@ export function VideoPlayer() {
     if (segments.length === 0) return null
     return segments[currentSegmentIndex]?.shot || null
   }
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts([
+    {
+      key: ' ',
+      callback: handlePlayPause,
+      description: 'Play/Pause',
+    },
+  ])
 
   if (!project) {
     return (
