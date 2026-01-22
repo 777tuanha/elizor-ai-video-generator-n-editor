@@ -78,6 +78,19 @@ A hybrid, AI-assisted video generator and editor that helps creators turn ideas 
 - ✅ Automatic transition between video segments
 - ✅ All tests passing (22/22), production build successful
 
+**Phase 8: Timeline Assembly** ✅ COMPLETE
+
+- ✅ Horizontal scrolling timeline component
+- ✅ Display only shots with "Used" videos
+- ✅ TimelineClip component with thumbnail and metadata
+- ✅ Drag & drop reordering on timeline (native HTML5)
+- ✅ Clip duration visualization (120px per second)
+- ✅ Timeline stats (clip count and total duration)
+- ✅ Shot selection from timeline
+- ✅ Timeline order syncs with preview playback
+- ✅ Timeline position indicators
+- ✅ All tests passing (22/22), production build successful
+
 ## Quick Start
 
 ### Prerequisites
@@ -143,12 +156,12 @@ elizor/
 
 See [docs/TECHNICAL_SPEC.md](docs/TECHNICAL_SPEC.md) for the full implementation plan.
 
-**Phase 8**: Timeline Assembly
-- Horizontal scrolling timeline component
-- Display only shots with "Used" videos
-- Drag & drop reordering on timeline
-- Clip duration visualization
-- Sync timeline order with preview playback
+**Phase 9**: Export Functionality
+- Integrate FFmpeg.wasm for video concatenation
+- Export progress UI with cancellation
+- MP4 export with H.264 codec (1080x1920, 9:16)
+- Error handling for export failures
+- Download trigger on completion
 
 ## Documentation
 

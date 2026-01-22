@@ -4,6 +4,7 @@ import { Section } from './Section'
 import { ShotList } from '@/components/shots/ShotList'
 import { ShotEditor } from '@/components/shots/ShotEditor'
 import { VideoPlayer } from '@/components/preview/VideoPlayer'
+import { Timeline } from '@/components/timeline/Timeline'
 import { useProjectStore } from '@/stores/projectStore'
 import { db } from '@/services/db'
 
@@ -47,11 +48,7 @@ export function MainLayout() {
 
         {/* Section 2: Timeline */}
         <Section title="Timeline" className="h-32 border-b">
-          <div className="flex items-center justify-center h-full">
-            <p className="text-sm text-muted-foreground">
-              Timeline will appear here
-            </p>
-          </div>
+          <Timeline />
         </Section>
 
         {/* Section 3: Shot Editor */}
